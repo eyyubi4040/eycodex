@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Ana Sayfa (Home) -->
+  <url>
+    <loc>https://eycodex.com/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://eycodex.com/?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eycodex.com/?lang=en" />
+  </url>
+
+  <!-- Özel Web Tasarım & UI/UX -->
+  <url>
+    <loc>https://eycodex.com/web-tasarim.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://eycodex.com/web-tasarim.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eycodex.com/web-tasarim.html?lang=en" />
+  </url>
+
+  <!-- Kurumsal Web Siteleri -->
+  <url>
+    <loc>https://eycodex.com/kurumsal-web-sitesi.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://eycodex.com/kurumsal-web-sitesi.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eycodex.com/kurumsal-web-sitesi.html?lang=en" />
+  </url>
+
+  <!-- E-Ticaret Yazılımı & Küresel Ödeme -->
+  <url>
+    <loc>https://eycodex.com/e-ticaret-yazilimi.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://eycodex.com/e-ticaret-yazilimi.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eycodex.com/e-ticaret-yazilimi.html?lang=en" />
+  </url>
+
+  <!-- Özel Web Yazılım & SaaS -->
+  <url>
+    <loc>https://eycodex.com/web-yazilim-saas.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://eycodex.com/web-yazilim-saas.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eycodex.com/web-yazilim-saas.html?lang=en" />
+  </url>
+
+  <!-- Global & Teknik SEO -->
+  <url>
+    <loc>https://eycodex.com/seo-optimizasyonu.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://eycodex.com/seo-optimizasyonu.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eycodex.com/seo-optimizasyonu.html?lang=en" />
+  </url>
+
+  <!-- Hakkımızda (About Us) -->
+  <url>
+    <loc>https://eycodex.com/hakkimizda.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://eycodex.com/hakkimizda.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eycodex.com/hakkimizda.html?lang=en" />
+  </url>
+
+  <!-- İletişim & Teklif (Contact) -->
+  <url>
+    <loc>https://eycodex.com/iletisim.html</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://eycodex.com/iletisim.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://eycodex.com/iletisim.html?lang=en" />
+  </url>
+</urlset>
