@@ -231,17 +231,29 @@ function initNav() {
   });
 
   if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('open');
-      mobileToggle.setAttribute('aria-expanded', navMenu.classList.contains('open'));
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navMenu.classList.toggle('open');
+      mobileToggle.classList.toggle('active', isOpen);
+      mobileToggle.setAttribute('aria-expanded', isOpen);
     });
 
     // Close mobile menu on link click
-    navMenu.querySelectorAll('.nav-link, .nav-dropdown-link').forEach(link => {
+    navMenu.querySelectorAll('.nav-link, .nav-dropdown-link, .btn').forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
+        mobileToggle.classList.remove('active');
         mobileToggle.setAttribute('aria-expanded', 'false');
       });
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (navMenu.classList.contains('open') && !navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+        navMenu.classList.remove('open');
+        mobileToggle.classList.remove('active');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+      }
     });
   }
 
