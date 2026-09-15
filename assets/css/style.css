@@ -3353,23 +3353,29 @@ select.form-control option {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
+    padding: 0.85rem 1.1rem;
+    font-size: 1.02rem;
     font-weight: 600;
     color: var(--text-primary);
     border-radius: var(--radius-sm);
     border: 1px solid transparent;
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
     touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(0, 242, 254, 0.2);
     cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
   }
   .nav-menu .nav-link:hover,
-  .nav-menu .nav-link:active,
   .nav-menu .nav-link.active {
     background: rgba(0, 242, 254, 0.08);
     border-color: rgba(0, 242, 254, 0.25);
     color: var(--cyan);
+  }
+  .nav-menu .nav-link:active {
+    background: rgba(0, 242, 254, 0.2) !important;
+    color: #ffffff !important;
+    transform: scale(0.98);
   }
   .nav-menu .nav-link::after {
     display: none;
@@ -3400,20 +3406,26 @@ select.form-control option {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.65rem 0.85rem;
+    padding: 0.75rem 0.95rem;
     border-radius: var(--radius-sm);
     color: var(--text-secondary);
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     font-weight: 500;
     touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(0, 242, 254, 0.2);
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
   }
-  .nav-dropdown-link:hover,
-  .nav-dropdown-link:active {
-    background: rgba(0, 242, 254, 0.1);
+  .nav-dropdown-link:hover {
+    background: rgba(0, 242, 254, 0.08);
     color: #ffffff;
+  }
+  .nav-dropdown-link:active {
+    background: rgba(0, 242, 254, 0.2) !important;
+    color: #ffffff !important;
+    transform: scale(0.98);
   }
   /* Mobile Menu CTA inside open drawer */
   .mobile-menu-cta {

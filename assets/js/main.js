@@ -282,38 +282,30 @@ function initNav() {
       }
     });
 
-    // Handle all clickable items inside mobile menu
-    navMenu.querySelectorAll('a, button').forEach(link => {
+    // Handle on-page hash anchors (e.g. #services, #portfolio, #why-us, #contact, #home)
+    navMenu.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', (e) => {
         const href = link.getAttribute('href');
-
-        // On-page hash anchors (e.g. #services, #portfolio, #why-us, #contact, #home)
-        if (href && href.startsWith('#') && href.length > 1) {
+        if (href && href.length > 1) {
           const targetEl = document.querySelector(href);
           if (targetEl) {
             e.preventDefault();
             closeMobileMenu();
 
-            // Smooth scroll with fixed header offset
             const headerOffset = 70;
             const elementPosition = targetEl.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-            setTimeout(() => {
-              window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-              });
-              if (window.history && window.history.pushState) {
-                window.history.pushState(null, null, href);
-              }
-            }, 60);
-            return;
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+
+            if (window.history && window.history.pushState) {
+              window.history.pushState(null, null, href);
+            }
           }
         }
-
-        // External page links or other buttons
-        closeMobileMenu();
       });
     });
 
