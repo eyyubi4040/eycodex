@@ -236,14 +236,16 @@ function initNav() {
       const isOpen = navMenu.classList.toggle('open');
       mobileToggle.classList.toggle('active', isOpen);
       mobileToggle.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
-    // Close mobile menu on link click
-    navMenu.querySelectorAll('.nav-link, .nav-dropdown-link, .btn').forEach(link => {
+    // Close mobile menu on clicking any navigation link (except dropdown headers)
+    navMenu.querySelectorAll('.nav-link:not(.nav-dropdown-toggle), .nav-dropdown-link, .btn').forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
         mobileToggle.classList.remove('active');
         mobileToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
       });
     });
 
@@ -253,6 +255,17 @@ function initNav() {
         navMenu.classList.remove('open');
         mobileToggle.classList.remove('active');
         mobileToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Prevent body scroll locking issues on resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 992 && navMenu.classList.contains('open')) {
+        navMenu.classList.remove('open');
+        mobileToggle.classList.remove('active');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
       }
     });
   }

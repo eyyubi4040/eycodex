@@ -788,47 +788,66 @@ img, svg {
   color: #fff;
 }
 
-/* Hamburger Toggle */
+/* Hamburger Toggle - Pure CSS Bars for 100% Mobile Browser Compatibility */
 .mobile-toggle {
   display: none;
-  background: rgba(0, 242, 254, 0.08);
-  border: 1px solid rgba(0, 242, 254, 0.3);
-  border-radius: var(--radius-sm);
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  min-height: 40px;
-  flex-shrink: 0;
-  cursor: pointer;
-  color: var(--cyan);
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: var(--transition-fast);
+  gap: 5px;
+  background: rgba(0, 242, 254, 0.08) !important;
+  border: 1.5px solid rgba(0, 242, 254, 0.4) !important;
+  border-radius: var(--radius-sm);
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  min-height: 42px;
+  flex-shrink: 0;
+  cursor: pointer;
   padding: 0;
-  box-shadow: 0 0 10px rgba(0, 242, 254, 0.15);
+  transition: var(--transition-fast);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.18);
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  z-index: 1001;
 }
 
-.mobile-toggle svg {
+.mobile-toggle .hamburger-bar {
   display: block;
-  width: 22px;
-  height: 22px;
-  stroke: var(--cyan);
-  stroke-width: 2.3px;
-  stroke-linecap: round;
-  transition: transform 0.3s ease, stroke 0.3s ease;
+  width: 21px;
+  height: 2.5px;
+  background-color: #00f2fe !important;
+  background: #00f2fe !important;
+  border-radius: 3px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, background-color 0.25s ease;
+  pointer-events: none;
 }
 
 .mobile-toggle:hover,
 .mobile-toggle:focus-visible,
 .mobile-toggle.active {
-  background: rgba(0, 242, 254, 0.2);
-  border-color: var(--cyan);
-  color: #ffffff;
-  box-shadow: 0 0 20px rgba(0, 242, 254, 0.5);
+  background: rgba(0, 242, 254, 0.2) !important;
+  border-color: #00f2fe !important;
+  box-shadow: 0 0 18px rgba(0, 242, 254, 0.55);
 }
 
-.mobile-toggle.active svg {
-  transform: rotate(90deg);
+.mobile-toggle.active .hamburger-bar:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.mobile-toggle.active .hamburger-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.mobile-toggle.active .hamburger-bar:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* Mobile Menu CTA (hidden on desktop) */
+.mobile-menu-cta {
+  display: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -3149,18 +3168,26 @@ select.form-control option {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .site-header {
     padding: 0.65rem 0;
   }
   .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 0.5rem;
+    width: 100%;
   }
   .brand-logo-img {
     height: 38px;
     max-width: 135px;
+    width: auto;
+    object-fit: contain;
   }
   .nav-actions {
+    display: flex;
+    align-items: center;
     gap: 0.5rem;
     flex-shrink: 0;
   }
@@ -3172,9 +3199,9 @@ select.form-control option {
     font-size: 0.72rem;
   }
   .mobile-toggle {
-    display: flex;
+    display: flex !important;
   }
-  /* Hide the top bar CTA on mobile so it doesn't overflow or push hamburger out */
+  /* Completely hide desktop top bar CTA on mobile/tablet to prevent any layout overflow */
   .site-header .nav-actions .btn,
   .site-header .nav-actions #nav-cta-btn,
   .site-header .nav-actions .header-cta-btn {
@@ -3235,6 +3262,24 @@ select.form-control option {
   }
   .nav-item-dropdown {
     width: 100%;
+  }
+  /* Mobile Menu CTA inside open drawer */
+  .mobile-menu-cta {
+    display: block !important;
+    width: 100% !important;
+    margin-top: 0.85rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid rgba(0, 242, 254, 0.2);
+  }
+  .mobile-menu-cta .btn {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: center;
+    align-items: center;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
   }
   .nav-dropdown-menu {
     position: static;
@@ -3304,5 +3349,54 @@ select.form-control option {
   .phone-screen {
     border-radius: 7px;
   }
+  .brand-logo-img {
+    height: 34px;
+    max-width: 120px;
+  }
+  .hero-title {
+    font-size: 2.1rem;
+    line-height: 1.15;
+  }
+  .section-title {
+    font-size: 1.85rem;
+  }
 }
+
+@media (max-width: 380px) {
+  .site-header {
+    padding: 0.5rem 0;
+  }
+  .brand-logo-img {
+    height: 30px;
+    max-width: 105px;
+  }
+  .nav-actions {
+    gap: 0.35rem;
+  }
+  .lang-switcher {
+    padding: 1.5px;
+  }
+  .lang-btn {
+    padding: 2px 6px;
+    font-size: 0.68rem;
+  }
+  .mobile-toggle {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+    gap: 4px;
+  }
+  .mobile-toggle .hamburger-bar {
+    width: 18px;
+    height: 2.2px;
+  }
+  .mobile-toggle.active .hamburger-bar:nth-child(1) {
+    transform: translateY(6.2px) rotate(45deg);
+  }
+  .mobile-toggle.active .hamburger-bar:nth-child(3) {
+    transform: translateY(-6.2px) rotate(-45deg);
+  }
+}
+
 
