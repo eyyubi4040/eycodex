@@ -33,12 +33,14 @@ function initParticleCanvas() {
   const canvas = document.getElementById('bg-canvas');
   if (!canvas) return;
 
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { alpha: true });
   let width, height;
   let particles = [];
   let isMobile = window.innerWidth < 768 || ('ontouchstart' in window);
   let mouse = { x: null, y: null, radius: 140 };
   let isPaused = false;
+  let isScrolling = false;
+  let scrollTimer = null;
   let animId = null;
 
   function resize() {
@@ -48,18 +50,27 @@ function initParticleCanvas() {
     createParticles();
   }
 
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', resize, { passive: true });
+
+  // Pause canvas drawing during active scrolling to give 100% GPU budget to smooth touch scroll
+  window.addEventListener('scroll', () => {
+    isScrolling = true;
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      isScrolling = false;
+    }, 100);
+  }, { passive: true });
   
   if (!isMobile) {
     window.addEventListener('mousemove', (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
-    });
+    }, { passive: true });
 
     window.addEventListener('mouseleave', () => {
       mouse.x = null;
       mouse.y = null;
-    });
+    }, { passive: true });
   }
 
   // Pause when tab not visible to save CPU/Battery
@@ -74,12 +85,12 @@ function initParticleCanvas() {
     constructor() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.size = Math.random() * (isMobile ? 1.5 : 2) + 1;
+      this.size = Math.random() * (isMobile ? 1.2 : 1.8) + 0.8;
       this.baseX = this.x;
       this.baseY = this.y;
-      this.vx = (Math.random() - 0.5) * (isMobile ? 0.3 : 0.6);
-      this.vy = (Math.random() - 0.5) * (isMobile ? 0.3 : 0.6);
-      this.alpha = Math.random() * 0.4 + 0.2;
+      this.vx = (Math.random() - 0.5) * (isMobile ? 0.2 : 0.45);
+      this.vy = (Math.random() - 0.5) * (isMobile ? 0.2 : 0.45);
+      this.alpha = Math.random() * 0.35 + 0.15;
       this.color = Math.random() > 0.5 ? 'rgba(0, 242, 254,' : 'rgba(127, 0, 255,';
     }
 
@@ -107,8 +118,8 @@ function initParticleCanvas() {
           const force = (mouse.radius - distance) / mouse.radius;
           const directionX = dx / distance;
           const directionY = dy / distance;
-          this.x -= directionX * force * 2.5;
-          this.y -= directionY * force * 2.5;
+          this.x -= directionX * force * 2;
+          this.y -= directionY * force * 2;
         }
       }
     }
@@ -117,8 +128,8 @@ function initParticleCanvas() {
   function createParticles() {
     particles = [];
     const count = isMobile 
-      ? Math.min(Math.floor((width * height) / 35000), 22) 
-      : Math.min(Math.floor((width * height) / 18000), 60);
+      ? Math.min(Math.floor((width * height) / 45000), 12) 
+      : Math.min(Math.floor((width * height) / 20000), 45);
     for (let i = 0; i < count; i++) {
       particles.push(new Particle());
     }
@@ -133,10 +144,10 @@ function initParticleCanvas() {
         const dy = particles[a].y - particles[b].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 110) {
-          const opacity = (1 - dist / 110) * 0.16;
+        if (dist < 100) {
+          const opacity = (1 - dist / 100) * 0.14;
           ctx.strokeStyle = `rgba(0, 242, 254, ${opacity})`;
-          ctx.lineWidth = 0.7;
+          ctx.lineWidth = 0.6;
           ctx.beginPath();
           ctx.moveTo(particles[a].x, particles[a].y);
           ctx.lineTo(particles[b].x, particles[b].y);
@@ -151,12 +162,14 @@ function initParticleCanvas() {
       animId = null;
       return;
     }
-    ctx.clearRect(0, 0, width, height);
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update();
-      particles[i].draw();
+    if (!isScrolling) {
+      ctx.clearRect(0, 0, width, height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+      }
+      if (!isMobile) connect();
     }
-    connect();
     animId = requestAnimationFrame(animate);
   }
 
@@ -167,6 +180,8 @@ function initParticleCanvas() {
 // 3. Scroll Reveal Engine (IntersectionObserver)
 function observeReveals() {
   const reveals = document.querySelectorAll('.reveal:not(.revealed)');
+  if (!reveals.length) return;
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -175,43 +190,56 @@ function observeReveals() {
       }
     });
   }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.08,
+    rootMargin: '0px 0px 40px 0px'
   });
 
   reveals.forEach(el => observer.observe(el));
 }
 
-// 4. Animated Number Counters
+// 4. Animated Number Counters (High Performance RAF Interpolation)
 function initCounters() {
-  const statNumbers = document.querySelectorAll('.stat-number');
-  let started = false;
-
   const statsSection = document.querySelector('.hero-stats-row');
   if (!statsSection) return;
+
+  const statNumbers = document.querySelectorAll('.stat-number');
+  let started = false;
 
   const observer = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting && !started) {
       started = true;
-      statNumbers.forEach(stat => {
-        const target = parseInt(stat.getAttribute('data-target') || stat.textContent, 10);
-        let count = 0;
-        const speed = 40;
-        const increment = Math.ceil(target / speed);
+      observer.unobserve(statsSection);
 
-        const updateCount = () => {
-          count += increment;
-          if (count < target) {
-            stat.textContent = count;
-            setTimeout(updateCount, 25);
-          } else {
-            stat.textContent = target;
-          }
-        };
-        updateCount();
-      });
+      const duration = 1400; // ms
+      const startTime = performance.now();
+
+      const targets = Array.from(statNumbers).map(stat => ({
+        el: stat,
+        target: parseInt(stat.getAttribute('data-target') || stat.textContent, 10) || 0
+      }));
+
+      function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 4); // easeOutQuart
+
+        targets.forEach(item => {
+          const current = Math.round(item.target * ease);
+          item.el.textContent = current;
+        });
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          targets.forEach(item => {
+            item.el.textContent = item.target;
+          });
+        }
+      }
+
+      requestAnimationFrame(step);
     }
-  }, { threshold: 0.5 });
+  }, { threshold: 0.25 });
 
   observer.observe(statsSection);
 }
@@ -240,19 +268,22 @@ function initNav() {
   const navMenu = document.getElementById('nav-menu');
   const backToTop = document.getElementById('back-to-top');
 
+  let isScrolled = false;
+  let isBackToTopVisible = false;
+
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 30) {
-      if (header) header.classList.add('scrolled');
-    } else {
-      if (header) header.classList.remove('scrolled');
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    
+    const shouldScroll = scrollY > 30;
+    if (shouldScroll !== isScrolled) {
+      isScrolled = shouldScroll;
+      if (header) header.classList.toggle('scrolled', isScrolled);
     }
 
-    if (backToTop) {
-      if (window.scrollY > 350) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
+    const shouldShowBtt = scrollY > 350;
+    if (shouldShowBtt !== isBackToTopVisible) {
+      isBackToTopVisible = shouldShowBtt;
+      if (backToTop) backToTop.classList.toggle('visible', isBackToTopVisible);
     }
   }, { passive: true });
 
