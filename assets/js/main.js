@@ -241,59 +241,102 @@ function initNav() {
   const backToTop = document.getElementById('back-to-top');
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      header.classList.add('scrolled');
+    if (window.scrollY > 30) {
+      if (header) header.classList.add('scrolled');
     } else {
-      header.classList.remove('scrolled');
+      if (header) header.classList.remove('scrolled');
     }
 
     if (backToTop) {
-      if (window.scrollY > 400) {
+      if (window.scrollY > 350) {
         backToTop.classList.add('visible');
       } else {
         backToTop.classList.remove('visible');
       }
     }
-  });
+  }, { passive: true });
 
   if (mobileToggle && navMenu) {
+    function closeMobileMenu() {
+      navMenu.classList.remove('open');
+      mobileToggle.classList.remove('active');
+      mobileToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+
+    function openMobileMenu() {
+      navMenu.classList.add('open');
+      mobileToggle.classList.add('active');
+      mobileToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
     mobileToggle.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation();
-      const isOpen = navMenu.classList.toggle('open');
-      mobileToggle.classList.toggle('active', isOpen);
-      mobileToggle.setAttribute('aria-expanded', isOpen);
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+      if (navMenu.classList.contains('open')) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
     });
 
-    // Close mobile menu on clicking any navigation link (except dropdown headers)
-    navMenu.querySelectorAll('.nav-link:not(.nav-dropdown-toggle), .nav-dropdown-link, .btn').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('open');
-        mobileToggle.classList.remove('active');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+    // Handle all clickable items inside mobile menu
+    navMenu.querySelectorAll('a, button').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+
+        // On-page hash anchors (e.g. #services, #portfolio, #why-us, #contact, #home)
+        if (href && href.startsWith('#') && href.length > 1) {
+          const targetEl = document.querySelector(href);
+          if (targetEl) {
+            e.preventDefault();
+            closeMobileMenu();
+
+            // Smooth scroll with fixed header offset
+            const headerOffset = 70;
+            const elementPosition = targetEl.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            setTimeout(() => {
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+              });
+              if (window.history && window.history.pushState) {
+                window.history.pushState(null, null, href);
+              }
+            }, 60);
+            return;
+          }
+        }
+
+        // External page links or other buttons
+        closeMobileMenu();
       });
     });
 
     // Close mobile menu when clicking outside
     document.addEventListener('click', (e) => {
       if (navMenu.classList.contains('open') && !navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
-        navMenu.classList.remove('open');
-        mobileToggle.classList.remove('active');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+        closeMobileMenu();
+      }
+    });
+
+    // Close mobile menu on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navMenu.classList.contains('open')) {
+        closeMobileMenu();
       }
     });
 
     // Prevent body scroll locking issues on resize
     window.addEventListener('resize', () => {
       if (window.innerWidth > 992 && navMenu.classList.contains('open')) {
-        navMenu.classList.remove('open');
-        mobileToggle.classList.remove('active');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+        closeMobileMenu();
       }
-    });
+    }, { passive: true });
   }
 
   if (backToTop) {
