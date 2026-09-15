@@ -28,7 +28,7 @@ function showToast(message) {
   }, 4000);
 }
 
-// 2. Dynamic Interactive Canvas Particle Network Background
+// 2. Dynamic Interactive Canvas Particle Network Background (Optimized for 60-120 FPS)
 function initParticleCanvas() {
   const canvas = document.getElementById('bg-canvas');
   if (!canvas) return;
@@ -36,36 +36,50 @@ function initParticleCanvas() {
   const ctx = canvas.getContext('2d');
   let width, height;
   let particles = [];
+  let isMobile = window.innerWidth < 768 || ('ontouchstart' in window);
   let mouse = { x: null, y: null, radius: 140 };
+  let isPaused = false;
+  let animId = null;
 
   function resize() {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
+    isMobile = width < 768 || ('ontouchstart' in window);
+    createParticles();
   }
 
   window.addEventListener('resize', resize);
-  resize();
+  
+  if (!isMobile) {
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
 
-  window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
+    window.addEventListener('mouseleave', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+  }
 
-  window.addEventListener('mouseleave', () => {
-    mouse.x = null;
-    mouse.y = null;
+  // Pause when tab not visible to save CPU/Battery
+  document.addEventListener('visibilitychange', () => {
+    isPaused = document.hidden;
+    if (!isPaused && !animId) {
+      animate();
+    }
   });
 
   class Particle {
     constructor() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.size = Math.random() * 2 + 1;
+      this.size = Math.random() * (isMobile ? 1.5 : 2) + 1;
       this.baseX = this.x;
       this.baseY = this.y;
-      this.vx = (Math.random() - 0.5) * 0.6;
-      this.vy = (Math.random() - 0.5) * 0.6;
-      this.alpha = Math.random() * 0.5 + 0.2;
+      this.vx = (Math.random() - 0.5) * (isMobile ? 0.3 : 0.6);
+      this.vy = (Math.random() - 0.5) * (isMobile ? 0.3 : 0.6);
+      this.alpha = Math.random() * 0.4 + 0.2;
       this.color = Math.random() > 0.5 ? 'rgba(0, 242, 254,' : 'rgba(127, 0, 255,';
     }
 
@@ -83,8 +97,8 @@ function initParticleCanvas() {
       if (this.x < 0 || this.x > width) this.vx = -this.vx;
       if (this.y < 0 || this.y > height) this.vy = -this.vy;
 
-      // Mouse interactivity
-      if (mouse.x !== null && mouse.y !== null) {
+      // Mouse interactivity on desktop
+      if (!isMobile && mouse.x !== null && mouse.y !== null) {
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -93,29 +107,36 @@ function initParticleCanvas() {
           const force = (mouse.radius - distance) / mouse.radius;
           const directionX = dx / distance;
           const directionY = dy / distance;
-          this.x -= directionX * force * 3;
-          this.y -= directionY * force * 3;
+          this.x -= directionX * force * 2.5;
+          this.y -= directionY * force * 2.5;
         }
       }
     }
   }
 
-  const particleCount = Math.min(Math.floor((width * height) / 16000), 75);
-  for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
+  function createParticles() {
+    particles = [];
+    const count = isMobile 
+      ? Math.min(Math.floor((width * height) / 35000), 22) 
+      : Math.min(Math.floor((width * height) / 18000), 60);
+    for (let i = 0; i < count; i++) {
+      particles.push(new Particle());
+    }
   }
 
   function connect() {
-    for (let a = 0; a < particles.length; a++) {
-      for (let b = a + 1; b < particles.length; b++) {
+    if (isMobile) return; // Skip heavy distance calculations on mobile for buttery 60-120fps
+    const len = particles.length;
+    for (let a = 0; a < len; a++) {
+      for (let b = a + 1; b < len; b++) {
         const dx = particles[a].x - particles[b].x;
         const dy = particles[a].y - particles[b].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 120) {
-          const opacity = (1 - dist / 120) * 0.18;
+        if (dist < 110) {
+          const opacity = (1 - dist / 110) * 0.16;
           ctx.strokeStyle = `rgba(0, 242, 254, ${opacity})`;
-          ctx.lineWidth = 0.75;
+          ctx.lineWidth = 0.7;
           ctx.beginPath();
           ctx.moveTo(particles[a].x, particles[a].y);
           ctx.lineTo(particles[b].x, particles[b].y);
@@ -126,15 +147,20 @@ function initParticleCanvas() {
   }
 
   function animate() {
+    if (isPaused) {
+      animId = null;
+      return;
+    }
     ctx.clearRect(0, 0, width, height);
     for (let i = 0; i < particles.length; i++) {
       particles[i].update();
       particles[i].draw();
     }
     connect();
-    requestAnimationFrame(animate);
+    animId = requestAnimationFrame(animate);
   }
 
+  resize();
   animate();
 }
 
