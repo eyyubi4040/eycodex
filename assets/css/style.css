@@ -2323,6 +2323,8 @@ img, svg {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
   gap: 3.5rem;
+  min-width: 0;
+  width: 100%;
 }
 
 .contact-info-card {
@@ -2333,6 +2335,9 @@ img, svg {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .contact-direct-list {
@@ -2341,12 +2346,22 @@ img, svg {
   flex-direction: column;
   gap: 1.5rem;
   margin: 2rem 0;
+  min-width: 0;
+  width: 100%;
 }
 
 .contact-direct-item {
   display: flex;
   align-items: center;
   gap: 1.2rem;
+  min-width: 0;
+  width: 100%;
+}
+
+.contact-direct-item > div:last-child {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
 }
 
 .contact-icon-box {
@@ -2375,12 +2390,25 @@ img, svg {
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  margin-bottom: 0.15rem;
 }
 
 .contact-detail-val {
   font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.contact-detail-val a {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  color: inherit;
+  text-decoration: none;
+  display: inline-block;
+  max-width: 100%;
 }
 
 .response-badge {
@@ -2394,6 +2422,13 @@ img, svg {
   font-size: 0.85rem;
   color: var(--emerald);
   font-weight: 600;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.response-badge span {
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 /* Form Styles */
@@ -2879,7 +2914,27 @@ select.form-control option {
   color: var(--text-muted);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  min-width: 0;
+  width: 100%;
+}
+
+.footer-link-with-icon svg {
+  flex-shrink: 0;
+}
+
+.footer-link-with-icon span {
+  min-width: 0;
+  flex: 1;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.footer-link-with-icon span a {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  color: inherit;
+  text-decoration: none;
 }
 
 .footer-bottom {
@@ -3298,6 +3353,15 @@ select.form-control option {
   .services-grid, .portfolio-grid, .process-grid, .features-grid {
     grid-template-columns: 1fr;
   }
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .contact-info-card,
+  .contact-form-card {
+    padding: 2rem 1.5rem;
+    border-radius: var(--radius-lg);
+  }
   .form-row {
     grid-template-columns: 1fr;
   }
@@ -3360,6 +3424,21 @@ select.form-control option {
   .section-title {
     font-size: 1.85rem;
   }
+  .contact-info-card,
+  .contact-form-card {
+    padding: 1.5rem 1.15rem;
+  }
+  .contact-direct-item {
+    gap: 0.85rem;
+  }
+  .contact-icon-box {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+  }
+  .contact-detail-val {
+    font-size: 0.92rem;
+  }
 }
 
 @media (max-width: 380px) {
@@ -3396,6 +3475,24 @@ select.form-control option {
   }
   .mobile-toggle.active .hamburger-bar:nth-child(3) {
     transform: translateY(-6.2px) rotate(-45deg);
+  }
+  .contact-info-card,
+  .contact-form-card {
+    padding: 1.25rem 0.85rem;
+  }
+  .contact-direct-item {
+    gap: 0.65rem;
+  }
+  .contact-icon-box {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+  }
+  .contact-detail-val {
+    font-size: 0.82rem;
+  }
+  .contact-detail-title {
+    font-size: 0.72rem;
   }
 }
 
