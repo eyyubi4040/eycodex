@@ -6,6 +6,7 @@ const translations = {
   tr: {
     // Navigation
     nav_home: "Ana Sayfa",
+    nav_home_index: ". Ana Sayfa",
     nav_calculator: "Fiyat Hesapla",
     nav_services: "Hizmetler",
     nav_about: "Hakkımızda",
@@ -250,6 +251,7 @@ const translations = {
   en: {
     // Navigation
     nav_home: "Home",
+    nav_home_index: ". Home",
     nav_calculator: "Cost Estimator",
     nav_services: "Services",
     nav_about: "About Us",
