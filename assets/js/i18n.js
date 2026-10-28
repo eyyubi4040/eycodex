@@ -16,6 +16,8 @@ const translations = {
     nav_contact: "İletişim",
     nav_cta: "Hızlı Teklif Al",
     svc_detail_btn: "Detaylı İncele & Başla",
+    republic_title: "29 Ekim Cumhuriyet Bayramımız Kutlu Olsun!",
+    republic_desc: "Cumhuriyetimizin kurucusu Gazi Mustafa Kemal Atatürk ve silah arkadaşlarını saygı, minnet ve rahmetle anıyoruz.",
 
     // Hero
     hero_badge: "Dünya Standartlarında Web & Yazılım Mühendisliği",
@@ -260,6 +262,8 @@ const translations = {
     nav_contact: "Contact",
     nav_cta: "Get Fast Quote",
     svc_detail_btn: "Explore & Start",
+    republic_title: "Happy October 29 Republic Day!",
+    republic_desc: "Celebrating the Republic of Turkey with profound respect and gratitude to Gazi Mustafa Kemal Atatürk.",
 
     // Hero
     hero_badge: "World-Class Web & Software Engineering",
@@ -541,6 +545,11 @@ function setLanguage(lang) {
   if (typeof renderPortfolioCards === 'function') {
     const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
     renderPortfolioCards(activeFilter);
+  }
+
+  // Update Republic Day Banner text dynamically
+  if (typeof updateRepublicBannerText === 'function') {
+    updateRepublicBannerText();
   }
 }
 

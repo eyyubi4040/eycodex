@@ -642,6 +642,82 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// 9. 29 Ekim Cumhuriyet Bayramı Özel Kutlama Barı
+function updateRepublicBannerText() {
+  const descEl = document.getElementById('celebrationDesc');
+  if (!descEl) return;
+  const currentYear = new Date().getFullYear();
+  const yearsPassed = currentYear - 1923;
+  const isTr = (typeof currentLang === 'undefined' || currentLang === 'tr');
+  if (isTr) {
+    descEl.innerHTML = `Cumhuriyetimizin <strong>${yearsPassed}. yılında</strong> Gazi Mustafa Kemal Atatürk ve silah arkadaşlarını saygı, minnet ve rahmetle anıyoruz.`;
+  } else {
+    descEl.innerHTML = `Celebrating the <strong>${yearsPassed}rd anniversary</strong> of the Republic with profound respect and gratitude to Gazi Mustafa Kemal Atatürk.`;
+  }
+}
+
+function initRepublicDayBanner() {
+  const banner = document.getElementById('republicDayBanner');
+  if (!banner) return;
+
+  const now = new Date();
+  const currentYear = now.getFullYear();
+
+  // Bitiş Zamanı: 29 Ekim 23:59:59 (Bayram gününün bitimi)
+  const expireDate = new Date(currentYear, 9, 29, 23, 59, 59, 999);
+  const startDate = new Date(currentYear, 9, 28, 0, 0, 0, 0);
+
+  // Tarih kontrolü: Süre bittiyse veya henüz başlamadıysa gösterme
+  if (now.getTime() > expireDate.getTime() || now.getTime() < startDate.getTime()) {
+    banner.style.display = 'none';
+    document.body.classList.remove('has-top-banner');
+    return;
+  }
+
+  // Ziyaretçi bu oturumda kapattıysa gösterme
+  if (sessionStorage.getItem('republicBannerDismissed') === 'true') {
+    banner.style.display = 'none';
+    document.body.classList.remove('has-top-banner');
+    return;
+  }
+
+  // Cumhuriyet yılını otomatik formatla
+  updateRepublicBannerText();
+
+  // Barı göster ve sayfa üst boşluğunu ayarla
+  banner.style.display = 'block';
+  document.body.classList.add('has-top-banner');
+
+  const syncHeight = () => {
+    if (banner && banner.offsetHeight) {
+      document.documentElement.style.setProperty('--banner-height', banner.offsetHeight + 'px');
+    }
+  };
+
+  syncHeight();
+  window.addEventListener('resize', syncHeight, { passive: true });
+  setTimeout(syncHeight, 100);
+
+  // Kapatma butonu işlevi
+  const closeBtn = document.getElementById('closeRepublicBanner');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      banner.style.display = 'none';
+      document.body.classList.remove('has-top-banner');
+      sessionStorage.setItem('republicBannerDismissed', 'true');
+    });
+  }
+
+  // Sayfa açıkken süre dolduğunda otomatik anında kaldır
+  const msUntilExpire = expireDate.getTime() - now.getTime();
+  if (msUntilExpire > 0 && msUntilExpire < 2147483647) {
+    setTimeout(() => {
+      banner.style.display = 'none';
+      document.body.classList.remove('has-top-banner');
+    }, msUntilExpire);
+  }
+}
+
 // Initialize Everything
 document.addEventListener('DOMContentLoaded', () => {
   initParticleCanvas();
@@ -651,6 +727,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNav();
   initCustomMultiSelect();
   initContactForm();
+  initRepublicDayBanner();
 
   // Set dynamic year
   const yearEl = document.getElementById('current-year');
