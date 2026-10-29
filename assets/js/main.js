@@ -643,19 +643,6 @@ document.addEventListener('click', (e) => {
 });
 
 // 9. 29 Ekim Cumhuriyet Bayramı Özel Kutlama Barı
-function updateRepublicBannerText() {
-  const descEl = document.getElementById('celebrationDesc');
-  if (!descEl) return;
-  const currentYear = new Date().getFullYear();
-  const yearsPassed = currentYear - 1923;
-  const isTr = (typeof currentLang === 'undefined' || currentLang === 'tr');
-  if (isTr) {
-    descEl.innerHTML = `Cumhuriyetimizin <strong>${yearsPassed}. yılında</strong> Gazi Mustafa Kemal Atatürk ve silah arkadaşlarını saygı, minnet ve rahmetle anıyoruz.`;
-  } else {
-    descEl.innerHTML = `Celebrating the <strong>${yearsPassed}rd anniversary</strong> of the Republic with profound respect and gratitude to Gazi Mustafa Kemal Atatürk.`;
-  }
-}
-
 function initRepublicDayBanner() {
   const banner = document.getElementById('republicDayBanner');
   if (!banner) return;
@@ -663,29 +650,20 @@ function initRepublicDayBanner() {
   const now = new Date();
   const currentYear = now.getFullYear();
 
-  // Bitiş Zamanı: 29 Ekim 23:59:59 (Bayram gününün bitimi)
-  const expireDate = new Date(currentYear, 9, 29, 23, 59, 59, 999);
+  // Başlangıç: Her yıl 28 Ekim 00:00:00
   const startDate = new Date(currentYear, 9, 28, 0, 0, 0, 0);
+  // Bitiş: Her yıl 29 Ekim 23:59:59 (Bayram gününün bitimi)
+  const expireDate = new Date(currentYear, 9, 29, 23, 59, 59, 999);
 
-  // Tarih kontrolü: Süre bittiyse veya henüz başlamadıysa gösterme
+  // Tarih kontrolü: Belirtilen bayram aralığı dışındaysa gösterme
   if (now.getTime() > expireDate.getTime() || now.getTime() < startDate.getTime()) {
     banner.style.display = 'none';
     document.body.classList.remove('has-top-banner');
     return;
   }
 
-  // Ziyaretçi bu oturumda kapattıysa gösterme
-  if (sessionStorage.getItem('republicBannerDismissed') === 'true') {
-    banner.style.display = 'none';
-    document.body.classList.remove('has-top-banner');
-    return;
-  }
-
-  // Cumhuriyet yılını otomatik formatla
-  updateRepublicBannerText();
-
   // Barı göster ve sayfa üst boşluğunu ayarla
-  banner.style.display = 'block';
+  banner.style.display = 'flex';
   document.body.classList.add('has-top-banner');
 
   const syncHeight = () => {
@@ -695,20 +673,19 @@ function initRepublicDayBanner() {
   };
 
   syncHeight();
+  const bannerImg = banner.querySelector('img');
+  if (bannerImg) {
+    if (bannerImg.complete) {
+      syncHeight();
+    } else {
+      bannerImg.addEventListener('load', syncHeight, { once: true });
+    }
+  }
   window.addEventListener('resize', syncHeight, { passive: true });
   setTimeout(syncHeight, 100);
+  setTimeout(syncHeight, 400);
 
-  // Kapatma butonu işlevi
-  const closeBtn = document.getElementById('closeRepublicBanner');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      banner.style.display = 'none';
-      document.body.classList.remove('has-top-banner');
-      sessionStorage.setItem('republicBannerDismissed', 'true');
-    });
-  }
-
-  // Sayfa açıkken süre dolduğunda otomatik anında kaldır
+  // Sayfa açıkken 29 Ekim 23:59:59 dolduğunda otomatik anında kaldır
   const msUntilExpire = expireDate.getTime() - now.getTime();
   if (msUntilExpire > 0 && msUntilExpire < 2147483647) {
     setTimeout(() => {

@@ -546,11 +546,6 @@ function setLanguage(lang) {
     const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
     renderPortfolioCards(activeFilter);
   }
-
-  // Update Republic Day Banner text dynamically
-  if (typeof updateRepublicBannerText === 'function') {
-    updateRepublicBannerText();
-  }
 }
 
 // Initialize on DOM ready
