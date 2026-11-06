@@ -3644,7 +3644,7 @@ select.form-control option {
 }
 
 /* ==========================================================================
-   29 EKİM CUMHURİYET BAYRAMI KUTLAMA BARI
+   29 EKİM CUMHURİYET BAYRAMI & 10 KASIM ATATÜRK'Ü ANMA BARLARI
    ========================================================================== */
 .celebration-top-bar {
   position: fixed;
@@ -3660,6 +3660,17 @@ select.form-control option {
   align-items: center;
   overflow: hidden;
   box-sizing: border-box;
+}
+
+#ataturkMemorialBanner,
+.memorial-top-bar {
+  background-color: #0b0c10;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.85);
+}
+
+#ataturkMemorialBanner .celebration-banner-img {
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .celebration-img-wrapper {
