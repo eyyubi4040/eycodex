@@ -17,6 +17,8 @@ const translations = {
     nav_contact: "İletişim",
     nav_cta: "Hızlı Teklif Al",
     svc_detail_btn: "Detaylı İncele & Başla",
+    float_wa_title: "Canlı Destek",
+    float_wa_subtitle: "Çevrimiçi • Anında Yanıt",
     republic_title: "29 Ekim Cumhuriyet Bayramımız Kutlu Olsun!",
     republic_desc: "Cumhuriyetimizin kurucusu Gazi Mustafa Kemal Atatürk ve silah arkadaşlarını saygı, minnet ve rahmetle anıyoruz.",
 
@@ -278,6 +280,8 @@ const translations = {
     nav_contact: "Contact",
     nav_cta: "Get Fast Quote",
     svc_detail_btn: "Explore & Start",
+    float_wa_title: "Live Support",
+    float_wa_subtitle: "Online • Instant Reply",
     republic_title: "Happy October 29 Republic Day!",
     republic_desc: "Celebrating the Republic of Turkey with profound respect and gratitude to Gazi Mustafa Kemal Atatürk.",
 
