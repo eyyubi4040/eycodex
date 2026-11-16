@@ -177,6 +177,214 @@ function initParticleCanvas() {
   animate();
 }
 
+// 2b. Bespoke 3D Cyber Horizon Wave & Particle Engine (Webintek-inspired undulating 3D cyber mesh)
+function initHero3DHorizonCanvas() {
+  const canvas = document.getElementById('hero3dCanvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d', { alpha: true });
+  if (!ctx) return;
+
+  let width = 0;
+  let height = 0;
+  let animId = null;
+  let isVisible = true;
+  let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+  let t = 0;
+
+  const isMobile = window.innerWidth < 768;
+  const cols = isMobile ? 26 : 42;
+  const rows = isMobile ? 18 : 28;
+
+  // Luminous floating sparks / cyber embers rising from the horizon
+  const sparksCount = isMobile ? 14 : 32;
+  const sparks = [];
+  function initSparks() {
+    sparks.length = 0;
+    for (let i = 0; i < sparksCount; i++) {
+      sparks.push({
+        x: Math.random() * (width || window.innerWidth),
+        y: (height || 600) * 0.35 + Math.random() * (height || 600) * 0.5,
+        vy: 0.4 + Math.random() * 0.8,
+        vx: (Math.random() - 0.5) * 0.3,
+        size: 0.8 + Math.random() * 1.8,
+        alpha: 0.2 + Math.random() * 0.6,
+        color: Math.random() > 0.4 ? 'rgba(0, 242, 254,' : 'rgba(0, 245, 160,'
+      });
+    }
+  }
+
+  function resize() {
+    const parent = canvas.parentElement;
+    if (!parent) return;
+    const rect = parent.getBoundingClientRect();
+    width = rect.width || window.innerWidth;
+    height = rect.height || (window.innerHeight * 0.9);
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    initSparks();
+  }
+
+  // Smooth mouse parallax
+  const heroSection = document.getElementById('home') || canvas.parentElement;
+  if (heroSection) {
+    heroSection.addEventListener('mousemove', (e) => {
+      const rect = heroSection.getBoundingClientRect();
+      const relX = (e.clientX - rect.left) / rect.width;
+      const relY = (e.clientY - rect.top) / rect.height;
+      mouse.targetX = (relX - 0.5) * 2; // -1 to 1
+      mouse.targetY = (relY - 0.5) * 2; // -1 to 1
+    }, { passive: true });
+
+    heroSection.addEventListener('mouseleave', () => {
+      mouse.targetX = 0;
+      mouse.targetY = 0;
+    }, { passive: true });
+  }
+
+  // Pause when off-screen to preserve 100% GPU / battery budget
+  if ('IntersectionObserver' in window && heroSection) {
+    const observer = new IntersectionObserver((entries) => {
+      isVisible = entries[0].isIntersecting;
+      if (isVisible && !animId) {
+        animate();
+      }
+    }, { threshold: 0.05 });
+    observer.observe(heroSection);
+  }
+
+  window.addEventListener('resize', resize, { passive: true });
+  resize();
+
+  function animate() {
+    if (!isVisible) {
+      animId = null;
+      return;
+    }
+
+    t += 0.022;
+    mouse.x += (mouse.targetX - mouse.x) * 0.04;
+    mouse.y += (mouse.targetY - mouse.y) * 0.04;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const fov = 340;
+    const horizonY = height * 0.44 + mouse.y * 15;
+    const centerX = width * 0.5 + mouse.x * 35;
+
+    // 1. Render Rising Cyber Embers / Horizon Stars
+    for (let i = 0; i < sparks.length; i++) {
+      const s = sparks[i];
+      s.y -= s.vy;
+      s.x += s.vx + Math.sin(t * 1.5 + i) * 0.25;
+      if (s.y < height * 0.08) {
+        s.y = height * 0.6 + Math.random() * (height * 0.3);
+        s.x = Math.random() * width;
+      }
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      ctx.fillStyle = `${s.color} ${s.alpha * (0.5 + 0.5 * Math.sin(t * 3 + i))})`;
+      ctx.fill();
+    }
+
+    // 2. Render Undulating 3D Particle Mesh Waves
+    const grid = [];
+    for (let r = 0; r < rows; r++) {
+      const rowArr = [];
+      const z = (rows - r) * (isMobile ? 26 : 22) + 35;
+      const scale = fov / (fov + z);
+      const yBase = horizonY + (r * (isMobile ? 22 : 18) - 30) * scale * 1.6;
+
+      for (let c = 0; c < cols; c++) {
+        const normX = (c - cols / 2) / (cols / 2);
+        const worldX = (c - cols / 2) * (isMobile ? 56 : 50);
+
+        // Organic undulating wave calculation with multiple harmonics
+        const wave = Math.sin(normX * 4.2 + t * 1.5 + r * 0.28) * 30
+                   + Math.cos(normX * 2.1 - t * 1.2 + r * 0.38) * 18
+                   + Math.sin(t * 2.4 + normX * 7.0) * 8;
+
+        const screenX = centerX + worldX * scale;
+        const screenY = yBase + wave * scale;
+        const depthRatio = r / rows;
+        const alpha = Math.min(0.9, Math.max(0.08, depthRatio * 0.95));
+
+        rowArr.push({ x: screenX, y: screenY, alpha, scale, depthRatio });
+      }
+      grid.push(rowArr);
+    }
+
+    // Draw connecting wave lines (horizontal depth waves)
+    ctx.lineWidth = 1;
+    for (let r = 0; r < rows; r++) {
+      ctx.beginPath();
+      for (let c = 0; c < cols; c++) {
+        const pt = grid[r][c];
+        if (c === 0) ctx.moveTo(pt.x, pt.y);
+        else ctx.lineTo(pt.x, pt.y);
+      }
+      const rowAlpha = (grid[r][0].depthRatio) * 0.26;
+      ctx.strokeStyle = `rgba(0, 242, 254, ${rowAlpha})`;
+      ctx.stroke();
+    }
+
+    // Draw connecting perspective lines (longitudinal columns)
+    for (let c = 0; c < cols; c += (isMobile ? 3 : 2)) {
+      ctx.beginPath();
+      for (let r = 0; r < rows; r++) {
+        const pt = grid[r][c];
+        if (r === 0) ctx.moveTo(pt.x, pt.y);
+        else ctx.lineTo(pt.x, pt.y);
+      }
+      const normC = (c - cols / 2) / (cols / 2);
+      const colAlpha = Math.cos(normC * 1.2) * 0.18;
+      ctx.strokeStyle = `rgba(0, 114, 255, ${Math.max(0.04, colAlpha)})`;
+      ctx.stroke();
+    }
+
+    // Draw glowing particle nodes
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const pt = grid[r][c];
+        const pulse = 1 + 0.25 * Math.sin(t * 3.5 + c * 0.5 + r * 0.3);
+        const radius = Math.max(0.7, (isMobile ? 1.8 : 2.4) * pt.scale * pulse);
+
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, radius, 0, Math.PI * 2);
+
+        if (c % 4 === 0) {
+          ctx.fillStyle = `rgba(0, 245, 160, ${pt.alpha})`;
+        } else if (c % 2 === 0) {
+          ctx.fillStyle = `rgba(0, 242, 254, ${pt.alpha})`;
+        } else {
+          ctx.fillStyle = `rgba(168, 85, 247, ${pt.alpha * 0.85})`;
+        }
+        ctx.fill();
+      }
+    }
+
+    // Central pulsing radiant corona on horizon sun
+    const sunPulse = 1 + 0.15 * Math.sin(t * 2);
+    const sunGrad = ctx.createRadialGradient(centerX, horizonY, 5, centerX, horizonY, 140 * sunPulse);
+    sunGrad.addColorStop(0, 'rgba(0, 242, 254, 0.22)');
+    sunGrad.addColorStop(0.35, 'rgba(0, 114, 255, 0.14)');
+    sunGrad.addColorStop(0.7, 'rgba(121, 40, 202, 0.08)');
+    sunGrad.addColorStop(1, 'transparent');
+    ctx.fillStyle = sunGrad;
+    ctx.beginPath();
+    ctx.arc(centerX, horizonY, 140 * sunPulse, 0, Math.PI * 2);
+    ctx.fill();
+
+    animId = requestAnimationFrame(animate);
+  }
+
+  animate();
+}
+
 // 3. Scroll Reveal Engine (IntersectionObserver)
 function observeReveals() {
   const reveals = document.querySelectorAll('.reveal:not(.revealed)');
@@ -839,6 +1047,7 @@ function initSpecialDaysBanners() {
 // Initialize Everything
 document.addEventListener('DOMContentLoaded', () => {
   initParticleCanvas();
+  initHero3DHorizonCanvas();
   observeReveals();
   initCounters();
   initFaq();

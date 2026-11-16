@@ -13,3 +13,6 @@ desktop.ini
 *.zip
 *.tar.gz
 *.rar
+
+# Scratch directory
+scratch/
