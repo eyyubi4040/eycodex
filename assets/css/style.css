@@ -1035,10 +1035,13 @@ div[id] {
 .hero-badge-container {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  background: rgba(0, 242, 254, 0.07);
-  border: 1px solid rgba(0, 242, 254, 0.3);
-  padding: 0.45rem 1.1rem;
+  gap: 0.65rem;
+  background: rgba(10, 16, 32, 0.88);
+  border: 1px solid rgba(0, 242, 254, 0.45);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 242, 254, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 0.5rem 1.25rem;
   border-radius: var(--radius-full);
   margin-bottom: 1.75rem;
   margin-inline: auto;
@@ -1054,10 +1057,12 @@ div[id] {
 }
 
 .hero-badge-text {
-  font-size: 0.875rem;
+  font-size: 0.92rem;
   font-weight: 600;
-  color: var(--cyan);
-  font-family: var(--font-mono);
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  font-family: var(--font-body);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 .hero-title {
