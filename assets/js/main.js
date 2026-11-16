@@ -367,27 +367,16 @@ function initHero3DHorizonCanvas() {
       }
     }
 
-    // Central pulsing radiant corona on horizon sun & ambient light beam
-    const sunPulse = 1 + 0.18 * Math.sin(t * 2);
-    const sunGrad = ctx.createRadialGradient(centerX, horizonY, 2, centerX, horizonY, 240 * sunPulse);
-    sunGrad.addColorStop(0, 'rgba(0, 245, 255, 0.55)');
-    sunGrad.addColorStop(0.2, 'rgba(0, 242, 254, 0.38)');
-    sunGrad.addColorStop(0.45, 'rgba(0, 114, 255, 0.22)');
-    sunGrad.addColorStop(0.75, 'rgba(121, 40, 202, 0.10)');
+    // Central pulsing radiant corona on horizon sun
+    const sunPulse = 1 + 0.15 * Math.sin(t * 2);
+    const sunGrad = ctx.createRadialGradient(centerX, horizonY, 5, centerX, horizonY, 140 * sunPulse);
+    sunGrad.addColorStop(0, 'rgba(0, 242, 254, 0.22)');
+    sunGrad.addColorStop(0.35, 'rgba(0, 114, 255, 0.14)');
+    sunGrad.addColorStop(0.7, 'rgba(121, 40, 202, 0.08)');
     sunGrad.addColorStop(1, 'transparent');
     ctx.fillStyle = sunGrad;
     ctx.beginPath();
-    ctx.arc(centerX, horizonY, 240 * sunPulse, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Wide horizon ambient glow beam
-    const beamGrad = ctx.createRadialGradient(centerX, horizonY, 10, centerX, horizonY, width * 0.45);
-    beamGrad.addColorStop(0, 'rgba(0, 242, 254, 0.18)');
-    beamGrad.addColorStop(0.4, 'rgba(0, 114, 255, 0.08)');
-    beamGrad.addColorStop(1, 'transparent');
-    ctx.fillStyle = beamGrad;
-    ctx.beginPath();
-    ctx.ellipse(centerX, horizonY, width * 0.45, 120 * sunPulse, 0, 0, Math.PI * 2);
+    ctx.arc(centerX, horizonY, 140 * sunPulse, 0, Math.PI * 2);
     ctx.fill();
 
     animId = requestAnimationFrame(animate);
