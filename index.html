@@ -48,7 +48,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="assets/css/style.css?v=5.5" />
+  <link rel="stylesheet" href="assets/css/style.css?v=5.6" />
   <link rel="stylesheet" href="assets/css/animations.css?v=5.0" />
 
   <!-- Prefetch Key Pages for Instant Mobile Transitions -->
@@ -218,6 +218,15 @@
   <main>
     <!-- 1. HERO SECTION -->
     <section class="hero-section section" id="home">
+      <!-- 3D Cyber Horizon Atmosphere Backdrop -->
+      <div class="hero-horizon-backdrop" aria-hidden="true">
+        <picture>
+          <source srcset="assets/images/hero-3d-horizon.webp" type="image/webp" />
+          <img src="assets/images/hero-3d-horizon.jpg" alt="EYCODEX 3D Cyber Horizon" class="hero-horizon-img" loading="eager" fetchpriority="high" />
+        </picture>
+        <div class="hero-horizon-overlay"></div>
+      </div>
+
       <div class="container">
         <div class="hero-grid">
           <!-- Left Hero Content -->
@@ -310,8 +319,13 @@
 
                 <div class="hero-card-center">
                   <img src="assets/images/eycodexlogo.webp" alt="EYCODEX Agency Emblem" class="hero-card-logo" />
-                  <div style="width: 100%; max-height: 150px; overflow: hidden; border-radius: var(--radius-md); margin-bottom: 0.85rem; border: 1px solid var(--border-subtle);">
-                    <img src="assets/images/showcase/hero-mockup.webp" alt="Web Showcase Mockup" style="width: 100%; height: 100%; object-fit: cover;" />
+                  <div class="hero-card-viewport">
+                    <img src="assets/images/showcase/hero-3d-showcase.webp" alt="EYCODEX 3D Cyber Horizon Engine" class="hero-card-preview-img" />
+                    <div class="viewport-scanline"></div>
+                    <div class="viewport-badge">
+                      <span class="pulse-dot" style="width:6px;height:6px;"></span>
+                      <span>3D CYBER HORIZON</span>
+                    </div>
                   </div>
                   <h3 style="font-size: 1.35rem; margin-bottom: 0.25rem; color: #fff;">EYCODEX</h3>
                   <p style="font-size: 0.85rem; color: var(--cyan);" data-i18n="hero_card_sub">Özel Tasarım & Yazılım Çözümleri</p>
@@ -355,6 +369,28 @@
         </div>
       </div>
     </section>
+
+    <!-- Curved Laser Horizon Divider -->
+    <div class="hero-curved-divider" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" fill="none" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="hero-curve-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00f2fe" stop-opacity="0" />
+            <stop offset="25%" stop-color="#00f2fe" stop-opacity="0.65" />
+            <stop offset="50%" stop-color="#00f5a0" stop-opacity="0.9" />
+            <stop offset="75%" stop-color="#0072ff" stop-opacity="0.65" />
+            <stop offset="100%" stop-color="#7f00ff" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="hero-curve-grad-2" x1="100%" y1="100%" x2="0%" y2="0%">
+            <stop offset="0%" stop-color="#0072ff" stop-opacity="0" />
+            <stop offset="50%" stop-color="#00f2fe" stop-opacity="0.4" />
+            <stop offset="100%" stop-color="#00f5a0" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+        <path d="M0,35 Q360,85 720,35 T1440,35" stroke="url(#hero-curve-grad-1)" stroke-width="2" fill="none" />
+        <path d="M0,50 Q360,100 720,50 T1440,50" stroke="url(#hero-curve-grad-2)" stroke-width="1.2" stroke-dasharray="8 6" fill="none" />
+      </svg>
+    </div>
 
     <!-- BRAND LOGOS & CLIENT SHOWCASE -->
     <section class="brand-showcase-section">
