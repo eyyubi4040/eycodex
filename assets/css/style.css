@@ -1125,10 +1125,10 @@ div[id] {
 }
 
 .hero-title .text-gradient {
-  background: none;
-  -webkit-background-clip: unset;
-  -webkit-text-fill-color: #000000;
-  color: #000000;
+  background: linear-gradient(180deg, #38383e 0%, #1a1a1e 45%, #000000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
   filter: none;
 }
 
