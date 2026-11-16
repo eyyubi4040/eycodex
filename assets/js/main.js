@@ -313,7 +313,7 @@ function initNav() {
       }
     });
 
-    // Handle on-page hash anchors (e.g. #services, #portfolio, #why-us, #contact, #home)
+    // Handle on-page hash anchors (e.g. #services, #portfolio, #why-us, #contact)
     navMenu.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', (e) => {
         const href = link.getAttribute('href');
@@ -331,10 +331,6 @@ function initNav() {
               top: offsetPosition,
               behavior: 'smooth'
             });
-
-            if (window.history && window.history.pushState) {
-              window.history.pushState(null, null, href);
-            }
           }
         }
       });
@@ -855,5 +851,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.getElementById('current-year');
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
+  }
+
+  // Clean URL Architecture: Smooth scroll to hash anchor on load and keep browser URL clean
+  if (window.location.hash && !window.location.hash.includes('10kasim') && !window.location.hash.includes('29ekim') && !window.location.hash.includes('off')) {
+    try {
+      const target = document.querySelector(window.location.hash);
+      if (target) {
+        setTimeout(() => {
+          const headerOffset = 70;
+          const elementPosition = target.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+          if (window.history && window.history.replaceState) {
+            window.history.replaceState(null, '', window.location.pathname + window.location.search);
+          }
+        }, 250);
+      }
+    } catch (e) { }
   }
 });
