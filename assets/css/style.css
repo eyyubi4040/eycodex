@@ -1016,10 +1016,20 @@ div[id] {
 }
 
 .hero-grid {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 3.5rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
+  max-width: 980px;
+  margin-inline: auto;
+}
+
+.hero-content-col {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .hero-badge-container {
@@ -1031,6 +1041,7 @@ div[id] {
   padding: 0.45rem 1.1rem;
   border-radius: var(--radius-full);
   margin-bottom: 1.75rem;
+  margin-inline: auto;
 }
 
 .pulse-dot {
@@ -1050,24 +1061,28 @@ div[id] {
 }
 
 .hero-title {
-  font-size: 3.6rem;
+  font-size: 3.8rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   margin-bottom: 1.5rem;
   line-height: 1.12;
+  text-align: center;
 }
 
 .hero-description {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   color: var(--text-secondary);
   line-height: 1.75;
   margin-bottom: 2.25rem;
-  max-width: 580px;
+  max-width: 720px;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .hero-cta-group {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1.25rem;
   margin-bottom: 3.5rem;
   flex-wrap: wrap;
@@ -1077,9 +1092,12 @@ div[id] {
 .hero-stats-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  padding-top: 2rem;
+  gap: 2rem;
+  padding-top: 2.25rem;
   border-top: 1px solid var(--border-subtle);
+  width: 100%;
+  max-width: 860px;
+  margin-inline: auto;
 }
 
 .stat-item {
