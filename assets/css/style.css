@@ -3644,6 +3644,351 @@ select.form-control option {
 }
 
 /* ==========================================================================
+   SKILLS & ENGINEERING ECOSYSTEM SECTION
+   ========================================================================== */
+.skills-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.skill-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 2.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: var(--transition-smooth);
+  overflow: hidden;
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--border-cyan), transparent);
+  opacity: 0;
+  transition: var(--transition-smooth);
+}
+
+.skill-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-medium);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.7), 0 0 30px -10px rgba(0, 242, 254, 0.2);
+}
+
+.skill-card:hover::before {
+  opacity: 1;
+}
+
+.skill-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.skill-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.skill-icon-box svg {
+  width: 26px;
+  height: 26px;
+}
+
+.skill-icon-box.icon-cyan {
+  background: rgba(0, 242, 254, 0.1);
+  color: var(--cyan);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+}
+
+.skill-icon-box.icon-emerald {
+  background: rgba(0, 245, 160, 0.1);
+  color: var(--emerald);
+  border: 1px solid rgba(0, 245, 160, 0.25);
+}
+
+.skill-icon-box.icon-purple {
+  background: rgba(127, 0, 255, 0.1);
+  color: #c084fc;
+  border: 1px solid rgba(127, 0, 255, 0.25);
+}
+
+.skill-icon-box.icon-amber {
+  background: rgba(251, 191, 36, 0.1);
+  color: var(--amber);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+}
+
+.skill-card:hover .skill-icon-box {
+  transform: scale(1.08) rotate(4deg);
+}
+
+.skill-metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--cyan);
+  background: rgba(0, 242, 254, 0.08);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+}
+
+.skill-metric-pill.metric-emerald {
+  color: var(--emerald);
+  background: rgba(0, 245, 160, 0.08);
+  border-color: rgba(0, 245, 160, 0.25);
+}
+
+.skill-metric-pill.metric-purple {
+  color: #c084fc;
+  background: rgba(127, 0, 255, 0.08);
+  border-color: rgba(127, 0, 255, 0.25);
+}
+
+.skill-metric-pill.metric-amber {
+  color: var(--amber);
+  background: rgba(251, 191, 36, 0.08);
+  border-color: rgba(251, 191, 36, 0.25);
+}
+
+.pulse-dot.dot-emerald {
+  background: var(--emerald);
+  box-shadow: 0 0 10px var(--emerald);
+}
+
+.pulse-dot.dot-purple {
+  background: #c084fc;
+  box-shadow: 0 0 10px #c084fc;
+}
+
+.pulse-dot.dot-amber {
+  background: var(--amber);
+  box-shadow: 0 0 10px var(--amber);
+}
+
+.skill-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.skill-card-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.skill-tag {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  transition: var(--transition-fast);
+}
+
+.skill-tag:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-medium);
+  transform: translateY(-1px);
+}
+
+.skill-bar-wrap {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.skill-bar-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.skill-bar-pct {
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.skill-progress-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.skill-progress-bar {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skill-progress-bar.bar-cyan {
+  background: linear-gradient(90deg, #00f2fe, #4facfe);
+}
+
+.skill-progress-bar.bar-emerald {
+  background: linear-gradient(90deg, #00f5a0, #00d9f5);
+}
+
+.skill-progress-bar.bar-purple {
+  background: linear-gradient(90deg, #7f00ff, #c084fc);
+}
+
+.skill-progress-bar.bar-amber {
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+}
+
+/* Terminal Benchmark Widget */
+.skill-terminal-card {
+  background: rgba(8, 12, 22, 0.95);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 35px rgba(0, 242, 254, 0.15);
+  overflow: hidden;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.terminal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.terminal-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.terminal-dots .dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.terminal-dots .dot-red { background: #ff5f56; }
+.terminal-dots .dot-yellow { background: #ffbd2e; }
+.terminal-dots .dot-green { background: #27c93f; }
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.terminal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--emerald);
+  letter-spacing: 0.04em;
+}
+
+.terminal-body {
+  padding: 1.5rem 1.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: #cbd5e1;
+  overflow-x: auto;
+}
+
+.terminal-line {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.terminal-line.indent {
+  padding-left: 1.75rem;
+}
+
+.terminal-line.output {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.t-keyword { color: #f43f5e; font-weight: 600; }
+.t-var { color: #38bdf8; font-weight: 600; }
+.t-func { color: #facc15; font-weight: 600; }
+.t-prop { color: #a78bfa; }
+.t-str { color: #34d399; }
+.t-num { color: #fb923c; font-weight: 700; }
+.t-success { color: #4ade80; font-weight: 700; }
+
+@media (max-width: 992px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .skill-card {
+    padding: 1.75rem;
+  }
+  .terminal-body {
+    padding: 1.25rem;
+    font-size: 0.82rem;
+  }
+}
+
+/* ==========================================================================
    29 EKİM CUMHURİYET BAYRAMI & 10 KASIM ATATÜRK'Ü ANMA BARLARI
    ========================================================================== */
 .celebration-top-bar {

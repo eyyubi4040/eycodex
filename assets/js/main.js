@@ -60,7 +60,7 @@ function initParticleCanvas() {
       isScrolling = false;
     }, 100);
   }, { passive: true });
-  
+
   if (!isMobile) {
     window.addEventListener('mousemove', (e) => {
       mouse.x = e.clientX;
@@ -127,8 +127,8 @@ function initParticleCanvas() {
 
   function createParticles() {
     particles = [];
-    const count = isMobile 
-      ? Math.min(Math.floor((width * height) / 45000), 12) 
+    const count = isMobile
+      ? Math.min(Math.floor((width * height) / 45000), 12)
       : Math.min(Math.floor((width * height) / 20000), 45);
     for (let i = 0; i < count; i++) {
       particles.push(new Particle());
@@ -273,7 +273,7 @@ function initNav() {
 
   window.addEventListener('scroll', () => {
     const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-    
+
     const shouldScroll = scrollY > 30;
     if (shouldScroll !== isScrolled) {
       isScrolled = shouldScroll;
@@ -413,12 +413,12 @@ function initCustomMultiSelect() {
 
       // Update trigger text / tags
       const isTr = (typeof currentLang !== 'undefined' && currentLang === 'tr');
-      const placeholderText = (typeof translations !== 'undefined' && translations[currentLang]?.select_service_placeholder) 
-        ? translations[currentLang].select_service_placeholder 
+      const placeholderText = (typeof translations !== 'undefined' && translations[currentLang]?.select_service_placeholder)
+        ? translations[currentLang].select_service_placeholder
         : (isTr ? 'Hizmet Seçiniz...' : 'Select Services...');
-      
-      const allText = (typeof translations !== 'undefined' && translations[currentLang]?.all_selected) 
-        ? translations[currentLang].all_selected 
+
+      const allText = (typeof translations !== 'undefined' && translations[currentLang]?.all_selected)
+        ? translations[currentLang].all_selected
         : (isTr ? 'Tüm Hizmetler Seçildi' : 'All Services Selected');
 
       if (checkedOptions.length === 0) {
@@ -533,7 +533,7 @@ function initContactForm() {
     const selectedChips = [];
     form.querySelectorAll('.service-chip-input:checked').forEach(input => {
       const label = input.closest('.multiselect-option')?.querySelector('.multiselect-option-label')?.textContent.trim()
-                 || input.closest('.service-chip')?.querySelector('.service-chip-content span')?.textContent.trim();
+        || input.closest('.service-chip')?.querySelector('.service-chip-content span')?.textContent.trim();
       if (label) selectedChips.push(label);
     });
     const service = selectedChips.length > 0 ? selectedChips.join(', ') : (isTr ? 'Genel Web Danışmanlığı' : 'General Web Consulting');
@@ -553,22 +553,22 @@ function initContactForm() {
     let text = '';
     if (isTr) {
       text = `*EYCODEX Yeni Proje & İletişim Talebi*%0A%0A` +
-             `👤 *Ad Soyad:* ${name}%0A` +
-             `📧 *E-Posta:* ${email}%0A` +
-             `📱 *WhatsApp:* ${phone}%0A` +
-             (company ? `🏢 *Şirket/Marka:* ${company}%0A` : '') +
-             `🛠️ *İlgilenilen Hizmetler:* ${service}%0A` +
-             (message ? `📝 *Proje Detayları:*%0A${message}%0A%0A` : '%0A') +
-             `Web siteniz üzerinden teklif ve detayları görüşmek için iletişime geçiyorum.`;
+        `👤 *Ad Soyad:* ${name}%0A` +
+        `📧 *E-Posta:* ${email}%0A` +
+        `📱 *WhatsApp:* ${phone}%0A` +
+        (company ? `🏢 *Şirket/Marka:* ${company}%0A` : '') +
+        `🛠️ *İlgilenilen Hizmetler:* ${service}%0A` +
+        (message ? `📝 *Proje Detayları:*%0A${message}%0A%0A` : '%0A') +
+        `Web siteniz üzerinden teklif ve detayları görüşmek için iletişime geçiyorum.`;
     } else {
       text = `*EYCODEX New Project & Inquiry*%0A%0A` +
-             `👤 *Name:* ${name}%0A` +
-             `📧 *Email:* ${email}%0A` +
-             `📱 *WhatsApp:* ${phone}%0A` +
-             (company ? `🏢 *Company:* ${company}%0A` : '') +
-             `🛠️ *Services of Interest:* ${service}%0A` +
-             (message ? `📝 *Project Details:*%0A${message}%0A%0A` : '%0A') +
-             `I would like to discuss my project details and get a quotation.`;
+        `👤 *Name:* ${name}%0A` +
+        `📧 *Email:* ${email}%0A` +
+        `📱 *WhatsApp:* ${phone}%0A` +
+        (company ? `🏢 *Company:* ${company}%0A` : '') +
+        `🛠️ *Services of Interest:* ${service}%0A` +
+        (message ? `📝 *Project Details:*%0A${message}%0A%0A` : '%0A') +
+        `I would like to discuss my project details and get a quotation.`;
     }
 
     const waUrl = `https://api.whatsapp.com/send?phone=905427170040&text=${text}`;
@@ -598,7 +598,7 @@ function openLegalModal(type) {
 
   if (type === 'kvkk') {
     title = isTr ? 'KVKK ve Kişisel Verilerin Korunması' : 'Data Protection Policy (KVKK/GDPR)';
-    content = isTr 
+    content = isTr
       ? '<p>EYCODEX olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, kullanıcılarımızın kişisel verilerinin güvenliğine en üst düzeyde önem vermekteyiz. Toplanan veriler yalnızca iletişim taleplerinizi yanıtlamak ve teklif süreçlerini yönetmek amacıyla işlenmektedir.</p><br><p>Kişisel verileriniz hiçbir şart altında üçüncü şahıs veya kurumlarla paylaşılmaz ve şifreli sunucularda muhafaza edilir.</p>'
       : '<p>At EYCODEX, in accordance with the relevant data protection laws and GDPR principles, we hold user privacy and data security in the highest regard. Collected data is processed strictly for quotation and consultation requests.</p><br><p>Your personal data is never shared with third parties and is stored securely in encrypted environments.</p>';
   } else if (type === 'privacy') {

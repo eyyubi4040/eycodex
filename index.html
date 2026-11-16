@@ -48,7 +48,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="assets/css/style.css?v=5.3" />
+  <link rel="stylesheet" href="assets/css/style.css?v=5.4" />
   <link rel="stylesheet" href="assets/css/animations.css?v=5.0" />
 
   <!-- Prefetch Key Pages for Instant Mobile Transitions -->
@@ -188,6 +188,7 @@
             </ul>
           </li>
           <li><a href="/hakkimizda" class="nav-link" data-i18n="nav_about">Hakkımızda</a></li>
+          <li><a href="#skills" class="nav-link" data-i18n="nav_skills">Yetenekler</a></li>
           <li><a href="#portfolio" class="nav-link" data-i18n="nav_portfolio">Portföy</a></li>
           <li><a href="#why-us" class="nav-link" data-i18n="nav_why_us">Neden Biz?</a></li>
           <li><a href="/iletisim" class="nav-link" data-i18n="nav_contact">İletişim</a></li>
@@ -584,6 +585,188 @@
               <span data-i18n="svc_detail_btn">Detaylı İncele & Başla</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3.5 SKILLS & ENGINEERING ECOSYSTEM -->
+    <section class="section skills-section" id="skills">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="badge-tag badge-cyan" data-i18n="skills_badge">Mühendislik & Yetenek Matrisi</span>
+          <h2 class="section-title">
+            <span data-i18n="skills_title_1">Son Nesil Teknolojiler,</span><br />
+            <span class="text-gradient" data-i18n="skills_title_2">Tavizsiz Mühendislik Standartları</span>
+          </h2>
+          <p class="section-subtitle" data-i18n="skills_subtitle">
+            Sıradan şablon siteleri değil; milisaniyelik açılış hızları, sızdırmaz veri mimarisi ve yüksek dönüşümlü arayüzler üreten dünya standartlarında bir teknoloji ekosistemiyle geliştiriyoruz.
+          </p>
+        </div>
+
+        <!-- 4 Pillars Grid -->
+        <div class="skills-grid">
+          <!-- Card 1: Frontend Craft -->
+          <div class="skill-card reveal">
+            <div class="skill-card-header">
+              <div class="skill-icon-box icon-cyan">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              </div>
+              <div class="skill-metric-pill">
+                <span class="pulse-dot"></span>
+                <span>60-120 FPS UI</span>
+              </div>
+            </div>
+            <h3 class="skill-card-title" data-i18n="skill_1_title">Frontend Craft & Arayüz Mimarisi</h3>
+            <p class="skill-card-desc" data-i18n="skill_1_desc">
+              Piksel hassasiyetinde 8-Point Grid ritmi, WCAG AAA kontrast, akıcı yay animasyonları ve Figma tabanlı sürdürülebilir tasarım sistemleri.
+            </p>
+            <div class="skill-tags">
+              <span class="skill-tag">React 19</span>
+              <span class="skill-tag">Next.js App Router</span>
+              <span class="skill-tag">TypeScript</span>
+              <span class="skill-tag">Tailwind CSS</span>
+              <span class="skill-tag">Framer Motion</span>
+              <span class="skill-tag">8pt Grid</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label">
+                <span>UI/UX Mimarisi & Etkileşim</span>
+                <span class="skill-bar-pct">99.8%</span>
+              </div>
+              <div class="skill-progress-track">
+                <div class="skill-progress-bar bar-cyan" style="width: 99.8%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: High Performance & Stateless Backend -->
+          <div class="skill-card reveal">
+            <div class="skill-card-header">
+              <div class="skill-icon-box icon-emerald">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+              </div>
+              <div class="skill-metric-pill metric-emerald">
+                <span class="pulse-dot dot-emerald"></span>
+                <span>&lt;150ms TTFB</span>
+              </div>
+            </div>
+            <h3 class="skill-card-title" data-i18n="skill_2_title">Yüksek Performans & Stateless Backend</h3>
+            <p class="skill-card-desc" data-i18n="skill_2_desc">
+              Sunucuda sıfır gereksiz yük; ultra hızlı Bun çalışma zamanı, stateless mikroservisler ve Dokploy ile otomatik sıfır kesintili dağıtım.
+            </p>
+            <div class="skill-tags">
+              <span class="skill-tag">Bun Runtime</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">Dokploy CI/CD</span>
+              <span class="skill-tag">Docker Containers</span>
+              <span class="skill-tag">Nginx Reverse Proxy</span>
+              <span class="skill-tag">Stateless Ops</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label">
+                <span>Sunucu Tepki Hızı & Dağıtım</span>
+                <span class="skill-bar-pct">100%</span>
+              </div>
+              <div class="skill-progress-track">
+                <div class="skill-progress-bar bar-emerald" style="width: 100%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Cloud & Secure Storage -->
+          <div class="skill-card reveal">
+            <div class="skill-card-header">
+              <div class="skill-icon-box icon-purple">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              </div>
+              <div class="skill-metric-pill metric-purple">
+                <span class="pulse-dot dot-purple"></span>
+                <span>%99.99 Uptime</span>
+              </div>
+            </div>
+            <h3 class="skill-card-title" data-i18n="skill_3_title">Bulut Mimarisi & Sızdırmaz Veri Güvenliği</h3>
+            <p class="skill-card-desc" data-i18n="skill_3_desc">
+              Medya ve veriler doğrudan Google Cloud Storage ve şifreli dağıtık veritabanlarında saklanır; sunucu çökse bile varlıklarınız güvendedir.
+            </p>
+            <div class="skill-tags">
+              <span class="skill-tag">Google Cloud (GCS)</span>
+              <span class="skill-tag">PostgreSQL / Supabase</span>
+              <span class="skill-tag">Cloud Firestore</span>
+              <span class="skill-tag">Stateless Data Store</span>
+              <span class="skill-tag">Global CDN</span>
+              <span class="skill-tag">SSL & TLS 1.3</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label">
+                <span>Veri Güvenliği & Dayanıklılık</span>
+                <span class="skill-bar-pct">99.99%</span>
+              </div>
+              <div class="skill-progress-track">
+                <div class="skill-progress-bar bar-purple" style="width: 99.99%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Technical SEO & CRO -->
+          <div class="skill-card reveal">
+            <div class="skill-card-header">
+              <div class="skill-icon-box icon-amber">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              </div>
+              <div class="skill-metric-pill metric-amber">
+                <span class="pulse-dot dot-amber"></span>
+                <span>100/100 Core Web Vitals</span>
+              </div>
+            </div>
+            <h3 class="skill-card-title" data-i18n="skill_4_title">Teknik SEO & Dönüşüm Odaklılık (CRO)</h3>
+            <p class="skill-card-desc" data-i18n="skill_4_desc">
+              Arama motoru robotları ve kullanıcılar için semantik HTML5, Schema.org zengin verileri ve sürtünmesiz satın alma/teklif akışları.
+            </p>
+            <div class="skill-tags">
+              <span class="skill-tag">Clean URLs</span>
+              <span class="skill-tag">Schema.org JSON-LD</span>
+              <span class="skill-tag">Lighthouse 100/100</span>
+              <span class="skill-tag">Zero Layout Shift (CLS 0)</span>
+              <span class="skill-tag">CRO Architecture</span>
+              <span class="skill-tag">Multi-Language i18n</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-label">
+                <span>Arama Motoru & Dönüşüm Puanı</span>
+                <span class="skill-bar-pct">100/100</span>
+              </div>
+              <div class="skill-progress-track">
+                <div class="skill-progress-bar bar-amber" style="width: 100%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terminal Architecture Telemetry Console -->
+        <div class="skill-terminal-card reveal">
+          <div class="terminal-top">
+            <div class="terminal-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <span class="terminal-title">eycodex-production-telemetry.ts</span>
+            <div class="terminal-badge">
+              <span class="pulse-dot dot-emerald"></span>
+              <span>LIVE SYSTEM: OPERATIONAL</span>
+            </div>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line"><span class="t-keyword">const</span> <span class="t-var">EycodexProductionEngine</span> = {</div>
+            <div class="terminal-line indent"><span class="t-prop">runtime</span>: <span class="t-str">"Bun v1.2+ (Fastest JavaScript/TypeScript Runtime)"</span>,</div>
+            <div class="terminal-line indent"><span class="t-prop">deployment</span>: <span class="t-str">"Dokploy Automated CI/CD Pipeline & Docker Containers"</span>,</div>
+            <div class="terminal-line indent"><span class="t-prop">cloudStorage</span>: <span class="t-str">"Google Cloud Storage (GCS bucket: eycodex)"</span>,</div>
+            <div class="terminal-line indent"><span class="t-prop">serverArchitecture</span>: <span class="t-str">"100% Stateless Server - Zero Data Loss Risk"</span>,</div>
+            <div class="terminal-line indent"><span class="t-prop">performance</span>: { <span class="t-prop">lighthouse</span>: <span class="t-num">100</span>, <span class="t-prop">ttfb</span>: <span class="t-str">"&lt;150ms"</span>, <span class="t-prop">cleanUrls</span>: <span class="t-keyword">true</span> },</div>
+            <div class="terminal-line indent"><span class="t-prop">designStandards</span>: [ <span class="t-str">"8-Point Grid System"</span>, <span class="t-str">"Framer Motion Physics"</span>, <span class="t-str">"WCAG AAA"</span> ]</div>
+            <div class="terminal-line">};</div>
+            <div class="terminal-line output"><span class="t-success">✔ [DIAGNOSTIC PASSED]:</span> All engineering directives active. Ready to scale without boundaries.</div>
           </div>
         </div>
       </div>
@@ -1306,8 +1489,8 @@
   <div id="toast-container" class="toast-container"></div>
 
   <!-- Scripts -->
-  <script src="assets/js/i18n.js?v=5.0"></script>
+  <script src="assets/js/i18n.js?v=5.1"></script>
   <script src="assets/js/portfolio.js?v=4.5"></script>
-  <script src="assets/js/main.js?v=5.3"></script>
+  <script src="assets/js/main.js?v=5.4"></script>
 </body>
 </html>
