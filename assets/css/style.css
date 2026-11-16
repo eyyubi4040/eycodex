@@ -1125,13 +1125,15 @@ div[id] {
 }
 
 .hero-description {
-  font-size: 1.2rem;
-  color: var(--text-secondary);
+  font-size: 1.22rem;
+  color: #e2e8f0;
   line-height: 1.75;
   margin-bottom: 2.25rem;
-  max-width: 720px;
+  max-width: 760px;
   margin-inline: auto;
   text-align: center;
+  font-weight: 450;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
 }
 
 .hero-cta-group {
