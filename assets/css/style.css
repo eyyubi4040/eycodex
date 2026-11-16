@@ -1124,6 +1124,12 @@ div[id] {
   text-align: center;
 }
 
+.hero-title .text-gradient {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.85);
+  paint-order: stroke fill;
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 15px rgba(0, 242, 254, 0.25));
+}
+
 .hero-description {
   font-size: 1.22rem;
   color: #e2e8f0;
