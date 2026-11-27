@@ -61,6 +61,25 @@ const portfolioProjects = [
     tech: 'Responsive HTML5, Fast CSS3, Distance & Fee Calculation Engine, Schema.org EmergencyService'
   },
   {
+    id: 'karaca-lux',
+    category: 'corporate automotive',
+    title: 'Karaca Lux Taşımacılık & Lojistik',
+    domain: 'karacalux.com',
+    liveUrl: 'https://karacalux.com/',
+    summaryTr: 'Ankara ve tüm Türkiye geneli VIP evden eve nakliyat, 15. kata kadar hidrolik asansörlü taşıma ve kaskolu lojistik platformu.',
+    summaryEn: 'VIP home-to-home relocation, hydraulic lift systems up to 15 floors, and fully insured intercity transportation platform.',
+    img: 'assets/images/projects/karacalux-preview.webp',
+    mobileImg: 'assets/images/projects/karacalux-mobil.webp',
+    logo: 'assets/images/projects/karacalux-logo.webp',
+    locationTr: 'Ankara & Türkiye Geneli',
+    locationEn: 'Ankara & Nationwide',
+    tags: ['karacalux.com', 'VIP Evden Eve', 'Asansörlü Nakliyat', 'Sigortalı Taşımacılık'],
+    metric: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> %100 Kaskolu & Sigortalı',
+    fullDescTr: 'Karaca Lux Taşımacılık için hayata geçirilen bu kurumsal lojistik web platformu; müşterilerin rota bazlı anında nakliye teklifi alabildiği, 15. kata kadar asansörlü taşıma detaylarını inceleyebildiği ve 7/24 rezervasyon oluşturabildiği yüksek dönüşümlü modern bir altyapıya sahiptir.',
+    fullDescEn: 'Bespoke corporate logistics web architecture engineered for Karaca Lux Transportation, featuring dynamic intercity route inquiry modules, hydraulic lift relocation showcases, and high-conversion booking flows.',
+    tech: 'Semantic HTML5, CSS3 Glassmorphism, Distance Inquiries, Schema.org MovingCompany'
+  },
+  {
     id: 'erm-auto',
     category: 'automotive',
     title: 'ERM Garage Özel Servis & Ekspertiz',
